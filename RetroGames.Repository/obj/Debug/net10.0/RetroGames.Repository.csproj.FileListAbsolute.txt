@@ -1,0 +1,16 @@
+C:\Users\muril\Documents\RetroGames\RetroGames.Repository\bin\Debug\net10.0\RetroGames.Repository.deps.json
+C:\Users\muril\Documents\RetroGames\RetroGames.Repository\bin\Debug\net10.0\RetroGames.Repository.dll
+C:\Users\muril\Documents\RetroGames\RetroGames.Repository\bin\Debug\net10.0\RetroGames.Repository.pdb
+C:\Users\muril\Documents\RetroGames\RetroGames.Repository\bin\Debug\net10.0\RetroGames.Model.dll
+C:\Users\muril\Documents\RetroGames\RetroGames.Repository\bin\Debug\net10.0\RetroGames.Model.pdb
+C:\Users\muril\Documents\RetroGames\RetroGames.Repository\obj\Debug\net10.0\RetroGames.Repository.csproj.AssemblyReference.cache
+C:\Users\muril\Documents\RetroGames\RetroGames.Repository\obj\Debug\net10.0\RetroGames.Repository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\muril\Documents\RetroGames\RetroGames.Repository\obj\Debug\net10.0\RetroGames.Repository.AssemblyInfoInputs.cache
+C:\Users\muril\Documents\RetroGames\RetroGames.Repository\obj\Debug\net10.0\RetroGames.Repository.AssemblyInfo.cs
+C:\Users\muril\Documents\RetroGames\RetroGames.Repository\obj\Debug\net10.0\RetroGames.Repository.csproj.CoreCompileInputs.cache
+C:\Users\muril\Documents\RetroGames\RetroGames.Repository\obj\Debug\net10.0\RetroGam.44CDA63C.Up2Date
+C:\Users\muril\Documents\RetroGames\RetroGames.Repository\obj\Debug\net10.0\RetroGames.Repository.dll
+C:\Users\muril\Documents\RetroGames\RetroGames.Repository\obj\Debug\net10.0\refint\RetroGames.Repository.dll
+C:\Users\muril\Documents\RetroGames\RetroGames.Repository\obj\Debug\net10.0\RetroGames.Repository.pdb
+C:\Users\muril\Documents\RetroGames\RetroGames.Repository\obj\Debug\net10.0\ref\RetroGames.Repository.dll
+C:\Users\muril\Documents\RetroGames\RetroGames.Repository\obj\Debug\net10.0\RetroGames.Repository.sourcelink.json

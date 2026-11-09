@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="RetroGames.Model/RetroGames.Model.csproj" />
+  <Project Path="RetroGames.Repository/RetroGames.Repository.csproj" />
+  <Project Path="RetroGames.Services/RetroGames.Services.csproj" />
+  <Project Path="RetroGames.WebApi.ApiModels/RetroGames.WebApi.ApiModels.csproj" />
+  <Project Path="RetroGames.WebApi.UnitTests/RetroGames.WebApi.UnitTests.csproj" />
+  <Project Path="RetroGames.WebApi/RetroGames.WebApi.csproj" />
+</Solution>
