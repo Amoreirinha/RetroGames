@@ -7,7 +7,7 @@ namespace RetroGames.Repository;
 
 public interface IJogoRepository
 {
-    Task<(List<Jogo> Jogos, int TotalCount)> ListarAsync(string? nome = null, int? idPlataforma = null, List<int>? idsGeneros = null, bool apenasAtivos = true, int pagina = 1, int tamanhoPagina = 10);
+    Task<(List<Jogo> Jogos, int TotalCount)> ListarAsync(string? nome = null, int? idPlataforma = null, List<int>? idsJogos = null, bool apenasAtivos = true, int pagina = 1, int tamanhoPagina = 10);
     Task<Jogo?> BuscarPorIdAsync(int id);
     Task<int> InserirAsync(Jogo jogo);
     Task AlterarAsync(Jogo jogo);
@@ -18,7 +18,7 @@ public class JogoRepository : RepositoryBase, IJogoRepository
 {
     public JogoRepository(RepositoryConfig config) : base(config) { }
 
-    public async Task<(List<Jogo> Jogos, int TotalCount)> ListarAsync(string? nome = null, int? idPlataforma = null, List<int>? idsGeneros = null, bool apenasAtivos = true, int pagina = 1, int tamanhoPagina = 10)
+    public async Task<(List<Jogo> Jogos, int TotalCount)> ListarAsync(string? nome = null, int? idPlataforma = null, List<int>? idsJogos = null, bool apenasAtivos = true, int pagina = 1, int tamanhoPagina = 10)
     {
         var jogos = new List<Jogo>();
         await using var conexao = await AbrirConexaoAsync();
@@ -27,9 +27,11 @@ public class JogoRepository : RepositoryBase, IJogoRepository
         if (apenasAtivos) where.Append(" AND j.st_ativo = TRUE");
         if (!string.IsNullOrWhiteSpace(nome)) where.Append(" AND j.no_jogo LIKE @nome");
         if (idPlataforma.HasValue) where.Append(" AND j.co_plataforma = @idPlataforma");
-        if (idsGeneros != null && idsGeneros.Count > 0)
+        if (idsJogos != null)
         {
-            where.Append($" AND j.co_seq_jogo IN (SELECT co_seq_jogo FROM tb_jogo_genero WHERE co_seq_genero IN ({string.Join(",", idsGeneros)}))");
+            // Lista vazia = o filtro (ex.: gênero) não encontrou nenhum jogo.
+            if (idsJogos.Count == 0) where.Append(" AND 1 = 0");
+            else where.Append($" AND j.co_seq_jogo IN ({string.Join(",", idsJogos)})");
         }
 
         // Contagem Total
