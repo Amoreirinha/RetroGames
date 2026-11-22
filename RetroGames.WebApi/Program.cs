@@ -28,6 +28,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 builder.Services.AddOpenApi();
 
+builder.Services.AddAutenticacaoCookie();
+
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
@@ -54,6 +56,10 @@ if (app.Environment.IsDevelopment())
         opcoes.RoutePrefix = "swagger";
     });
 }
+
+// A ordem importa: primeiro quem é o usuário, depois o que ele pode fazer.
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
