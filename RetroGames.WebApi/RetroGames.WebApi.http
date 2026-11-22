@@ -13,6 +13,42 @@ GET {{host}}/api/Jogo?pagina=1&tamanhoPagina=5
 ###
 GET {{host}}/api/Jogo/9999
 
+### ---------- Acesso (Aula 6) ----------
+# POST sem login -> 401, responseCode 4
+POST {{host}}/api/Plataforma
+Content-Type: application/json
+
+{ "nome": "Super Nintendo", "fabricante": "Nintendo", "anoLancamento": 1990 }
+###
+# Login com senha errada -> 401, responseCode 6
+POST {{host}}/api/Autenticacao/login
+Content-Type: application/json
+
+{ "email": "admin@retrogames.com", "senha": "senha-errada" }
+###
+# Login com e-mail mal formado -> 400, responseCode 3, campos em data
+POST {{host}}/api/Autenticacao/login
+Content-Type: application/json
+
+{ "email": "isto-nao-e-email", "senha": "x" }
+###
+# Login do administrador (ajuste o e-mail e a senha do seu .env) -> 200
+# @name login
+POST {{host}}/api/Autenticacao/login
+Content-Type: application/json
+
+{ "email": "admin@retrogames.com", "senha": "COLOQUE_A_SENHA_AQUI" }
+###
+GET {{host}}/api/Autenticacao/eu
+###
+POST {{host}}/api/Autenticacao/logout
+###
+# Depois do logout -> 401, responseCode 4
+GET {{host}}/api/Autenticacao/eu
+###
+# incluirInativos sem login -> 200, só jogos ativos
+GET {{host}}/api/Jogo?incluirInativos=true
+
 ### ---------- Gravação (Aula 5; com login de administrador a partir da Aula 6) ----------
 # 201 + Location
 POST {{host}}/api/Plataforma
