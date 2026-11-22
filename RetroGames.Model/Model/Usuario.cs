@@ -16,4 +16,7 @@ public class Usuario
 
     // co_perfil
     public int IdPerfil { get; set; }
+
+    // ds_perfil (de tb_perfil, vindo do JOIN): o nome do perfil, como em Perfis
+    public string NomePerfil { get; set; } = string.Empty;
 }

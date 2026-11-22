@@ -1,5 +1,6 @@
 using DotNetEnv;
 using FluentValidation;
+using RetroGames.Services;
 using RetroGames.WebApi.Configuration;
 using RetroGames.WebApi.Filters;
 using RetroGames.WebApi.Middlewares;
@@ -31,6 +32,15 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
 var app = builder.Build();
+
+// O primeiro administrador nasce na inicialização, com e-mail e senha lidos do .env.
+using (var escopo = app.Services.CreateScope())
+{
+    var autenticacao = escopo.ServiceProvider.GetRequiredService<IAutenticacaoService>();
+    await autenticacao.GarantirAdministradorInicialAsync(
+        builder.Configuration["AdminInicial:Email"],
+        builder.Configuration["AdminInicial:Senha"]);
+}
 
 // Primeira etapa do pipeline: captura qualquer exceção das etapas seguintes.
 app.UseExceptionHandler();
