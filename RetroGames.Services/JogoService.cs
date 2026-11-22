@@ -72,12 +72,11 @@ public class JogoService : IJogoService
 
     public async Task<JogoDetalheServiceModel> AlterarAsync(Jogo jogo, List<int> idsGeneros)
     {
-        var existente = await _repositorio.Jogo.BuscarPorIdAsync(jogo.Id);
-        if (existente is null)
+        if (await _repositorio.Jogo.BuscarPorIdAsync(jogo.Id) is null)
             throw new BusinessRuleException(BusinessErrors.JOGO_NAO_ENCONTRADO);
 
         jogo.Nome = jogo.Nome.Trim();
-        jogo.Ativo = existente.Ativo; // alterar não reativa nem desativa o jogo
+        // O "ativo" vem do cliente: o PUT com "ativo": true reativa um jogo desativado.
         idsGeneros = NormalizarGeneros(idsGeneros);
 
         await ValidarReferenciasAsync(jogo, idsGeneros);

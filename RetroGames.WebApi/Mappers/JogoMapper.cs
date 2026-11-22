@@ -21,6 +21,35 @@ public static class JogoMapper
         };
     }
 
+    // Entrada -> modelo. O id vem da rota; "ativo" só existe na alteração (para reativar o jogo).
+    public static Jogo ParaModel(this InserirJogoRequestApiModel request)
+    {
+        return new Jogo
+        {
+            Nome = request.Nome,
+            Descricao = request.Descricao,
+            Preco = request.Preco,
+            QuantidadeEstoque = request.Estoque,
+            IdPlataforma = request.IdPlataforma,
+            IdCondicaoJogo = request.IdCondicaoJogo
+        };
+    }
+
+    public static Jogo ParaModel(this AlterarJogoRequestApiModel request, int id)
+    {
+        return new Jogo
+        {
+            Id = id,
+            Nome = request.Nome,
+            Descricao = request.Descricao,
+            Preco = request.Preco,
+            QuantidadeEstoque = request.Estoque,
+            Ativo = request.Ativo,
+            IdPlataforma = request.IdPlataforma,
+            IdCondicaoJogo = request.IdCondicaoJogo
+        };
+    }
+
     public static ListarJogoResponseApiModel ParaResponse(this JogoDetalheServiceModel detalhe)
     {
         return new ListarJogoResponseApiModel
