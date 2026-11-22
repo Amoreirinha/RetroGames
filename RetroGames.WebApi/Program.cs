@@ -1,5 +1,7 @@
 using DotNetEnv;
+using FluentValidation;
 using RetroGames.WebApi.Configuration;
+using RetroGames.WebApi.Filters;
 using RetroGames.WebApi.Middlewares;
 
 // O .env precisa ser carregado antes do CreateBuilder, para entrar na configuração.
@@ -17,7 +19,12 @@ if (string.IsNullOrWhiteSpace(connectionString))
 builder.Services.AddRepositorios(connectionString);
 builder.Services.AddServicosDeNegocio();
 
-builder.Services.AddControllers();
+// O filtro valida o formato de toda entrada antes da action; o ApiBehavior cobre JSON malformado.
+builder.Services.AddControllers(opcoes => opcoes.Filters.Add<FluentValidationFilter>())
+    .ConfigureApiBehaviorOptions(opcoes =>
+        opcoes.InvalidModelStateResponseFactory = ValidacaoConfig.RespostaModelStateInvalido);
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+
 builder.Services.AddOpenApi();
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
