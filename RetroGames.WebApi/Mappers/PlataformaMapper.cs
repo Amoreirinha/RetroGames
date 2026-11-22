@@ -15,4 +15,26 @@ public static class PlataformaMapper
             AnoLancamento = plataforma.AnoLancamento
         };
     }
+
+    public static Plataforma ParaModel(this InserirPlataformaRequestApiModel request)
+    {
+        return new Plataforma
+        {
+            Nome = request.Nome,
+            Fabricante = request.Fabricante,
+            AnoLancamento = request.AnoLancamento
+        };
+    }
+
+    // Na alteração, o id vem da rota.
+    public static Plataforma ParaModel(this AlterarPlataformaRequestApiModel request, int id)
+    {
+        return new Plataforma
+        {
+            Id = id,
+            Nome = request.Nome,
+            Fabricante = request.Fabricante,
+            AnoLancamento = request.AnoLancamento
+        };
+    }
 }
