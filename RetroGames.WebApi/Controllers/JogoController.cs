@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RetroGames.Services;
 using RetroGames.WebApi.ApiModels;
+using RetroGames.WebApi.Configuration;
 using RetroGames.WebApi.Mappers;
 
 namespace RetroGames.WebApi.Controllers;
@@ -16,6 +18,7 @@ public class JogoController : ControllerBase
         _service = service;
     }
 
+    [AllowAnonymous]
     [HttpGet]
     public async Task<ActionResult<RetroGamesResponseApiModel<PaginaResponseApiModel<ListarJogoResponseApiModel>>>> Listar(
         [FromQuery] ListarJogoRequestApiModel request)
@@ -29,6 +32,7 @@ public class JogoController : ControllerBase
         });
     }
 
+    [AllowAnonymous]
     [HttpGet("{id:int}")]
     public async Task<ActionResult<RetroGamesResponseApiModel<ListarPorIdJogoResponseApiModel>>> ListarPorId(int id)
     {
@@ -37,6 +41,7 @@ public class JogoController : ControllerBase
         return Ok(new RetroGamesResponseApiModel<ListarPorIdJogoResponseApiModel> { Data = detalhe.ParaDetalheResponse() });
     }
 
+    [Authorize(Policy = Politicas.Administrador)]
     [HttpPost]
     public async Task<ActionResult<RetroGamesResponseApiModel<ListarPorIdJogoResponseApiModel>>> Inserir(InserirJogoRequestApiModel request)
     {
@@ -46,6 +51,7 @@ public class JogoController : ControllerBase
             new RetroGamesResponseApiModel<ListarPorIdJogoResponseApiModel> { Data = criado.ParaDetalheResponse() });
     }
 
+    [Authorize(Policy = Politicas.Administrador)]
     [HttpPut("{id:int}")]
     public async Task<ActionResult<RetroGamesResponseApiModel<ListarPorIdJogoResponseApiModel>>> Alterar(int id, AlterarJogoRequestApiModel request)
     {
@@ -54,6 +60,7 @@ public class JogoController : ControllerBase
         return Ok(new RetroGamesResponseApiModel<ListarPorIdJogoResponseApiModel> { Data = alterado.ParaDetalheResponse() });
     }
 
+    [Authorize(Policy = Politicas.Administrador)]
     // Exclusão lógica (RN03): o jogo nunca é apagado, só desativado.
     [HttpDelete("{id:int}")]
     public async Task<ActionResult<RetroGamesResponseApiModel>> Desativar(int id)

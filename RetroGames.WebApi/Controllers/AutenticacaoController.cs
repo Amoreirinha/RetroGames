@@ -20,6 +20,7 @@ public class AutenticacaoController : ControllerBase
         _service = service;
     }
 
+    [AllowAnonymous]
     [HttpPost("login")]
     public async Task<ActionResult<RetroGamesResponseApiModel<UsuarioLogadoResponseApiModel>>> Login(
         LoginRequestApiModel request)

@@ -4,6 +4,7 @@ using RetroGames.Services;
 using RetroGames.WebApi.Configuration;
 using RetroGames.WebApi.Filters;
 using RetroGames.WebApi.Middlewares;
+using RetroGames.WebApi.Services;
 
 // O .env precisa ser carregado antes do CreateBuilder, para entrar na configuração.
 Env.TraversePath().Load();
@@ -20,6 +21,10 @@ if (string.IsNullOrWhiteSpace(connectionString))
 builder.Services.AddRepositorios(connectionString);
 builder.Services.AddServicosDeNegocio();
 
+// O Service não conhece HTTP: recebe a interface, e a WebApi a implementa lendo o cookie.
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IUsuarioAtualService, UsuarioAtualService>();
+
 // O filtro valida o formato de toda entrada antes da action; o ApiBehavior cobre JSON malformado.
 builder.Services.AddControllers(opcoes => opcoes.Filters.Add<FluentValidationFilter>())
     .ConfigureApiBehaviorOptions(opcoes =>
@@ -29,6 +34,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 builder.Services.AddOpenApi();
 
 builder.Services.AddAutenticacaoCookie();
+builder.Services.AddAutorizacao();
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
@@ -49,7 +55,7 @@ app.UseExceptionHandler();
 
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.MapOpenApi().AllowAnonymous();
     app.UseSwaggerUI(opcoes =>
     {
         opcoes.SwaggerEndpoint("/openapi/v1.json", "RetroGames API v1");

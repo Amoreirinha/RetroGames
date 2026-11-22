@@ -16,6 +16,7 @@ public static class JogoMapper
             Busca = string.IsNullOrWhiteSpace(request.Busca) ? null : request.Busca.Trim(),
             IdPlataforma = request.IdPlataforma,
             IdGenero = request.IdGenero,
+            IncluirInativos = request.IncluirInativos,
             Pagina = Math.Max(request.Pagina, 1),
             TamanhoPagina = Math.Clamp(request.TamanhoPagina, 1, TamanhoPaginaMaximo)
         };

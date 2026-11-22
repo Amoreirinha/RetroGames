@@ -8,4 +8,7 @@ public class ListarJogoRequestApiModel
     public int? IdGenero { get; set; }
     public int Pagina { get; set; } = 1;
     public int TamanhoPagina { get; set; } = 12;
+
+    /// <summary>Só o administrador vê jogos inativos; para os demais o parâmetro não tem efeito.</summary>
+    public bool IncluirInativos { get; set; }
 }
